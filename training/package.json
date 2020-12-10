@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "commit": "git-cz"
   },
   "hooks": {
     "pre-commit": "npm run lint && npm run test:c",
