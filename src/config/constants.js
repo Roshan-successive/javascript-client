@@ -6,4 +6,45 @@ export const banners = ['banners/cloud.jpg', 'banners/dns-server.png', 'banners/
 
 export const total = 5;
 
- 
+const selectOptions = [
+    {
+      label: 'Cricket',
+      value: 'cricket',
+    },
+    {
+      label: 'Football',
+      value: 'football',
+    },
+  ];
+  const radioOptionsCricket = [
+    {
+      label: 'Wicket Keeper',
+      value: 'wicket keeper',
+    },
+    {
+      label: 'Batsman',
+      value: 'batsman',
+    },
+    {
+      label: 'Bowler',
+      value: 'bowler',
+    },
+    {
+      label: 'All Rounder',
+      value: 'all rounder',
+    },
+  ];
+  
+  const radioOptionsFootball = [
+    {
+      label: 'Striker',
+      value: 'striker',
+    },
+    {
+      label: 'Defender',
+      value: 'defender',
+    },
+  ];
+  
+  export { selectOptions, radioOptionsCricket, radioOptionsFootball };
+  
