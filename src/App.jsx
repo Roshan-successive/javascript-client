@@ -1,10 +1,9 @@
 import React from 'react';
-// import { TextFieldDemo } from './pages/index'
-import { InputDemo } from './pages/index';
+import { TextFieldDemo } from './pages/index'
 
 function App() {
   return (
-   < InputDemo />
+   < TextFieldDemo />
   );
 }
 
