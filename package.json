@@ -7,7 +7,9 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
     "commitizen": "^4.2.2",
+
     "prop-types": "^15.7.2",
+
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
@@ -21,8 +23,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+
     "lint": "eslint src",
     "commit": "git-cz"
+
+    "lint": "eslint src"
+
   },
   "hooks": {
     "pre-commit": "npm run lint && npm run test:c",
