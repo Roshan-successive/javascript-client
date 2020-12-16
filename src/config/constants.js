@@ -6,6 +6,7 @@ export const banners = ['banners/cloud.jpg', 'banners/dns-server.png', 'banners/
 
 export const total = 5;
 
+
 const selectOptions = [
     {
       label: 'Cricket',
@@ -48,3 +49,4 @@ const selectOptions = [
   
   export { selectOptions, radioOptionsCricket, radioOptionsFootball };
   
+

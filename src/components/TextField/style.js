@@ -3,6 +3,10 @@ import styled, { css } from 'styled-components';
 const Div = styled.div`
 margin: 2px;
 
+
+border: 1px solid black;
+
+
 `;
 const Error = styled.p`
 color: red;
