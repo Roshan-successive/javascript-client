@@ -4,6 +4,11 @@
 /node_modules
 /.pnp
 .pnp.js
+/package-lock.json
+/.eslintcache
+/.eslintrc.json
+/.vscode
+
 /.eslintrc.json
 /.eslintcache
 /package-lock.json
