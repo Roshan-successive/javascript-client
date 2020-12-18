@@ -14,5 +14,4 @@ color: red;
 export { Input, Err };
 
 
-export { Input };
 

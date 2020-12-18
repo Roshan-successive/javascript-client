@@ -1,8 +1,6 @@
 
 import React, { Component } from 'react';
 
-import React, { Component } from 'react'
-
 import { TextField, Slider } from '../../components';
 import { Div } from '../../components/TextField/style';
 import { banners, DEFAULT_BANNER_IMAGE } from '../../config/constants';
@@ -36,5 +34,4 @@ class TextFieldDemo extends Component {
 
 export default TextFieldDemo;
 
-export default TextFieldDemo;
 

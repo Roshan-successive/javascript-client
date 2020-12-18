@@ -50,7 +50,6 @@ const selectOptions = [
 
   export { selectOptions, radioOptionsCricket, radioOptionsFootball };
 
-  export { selectOptions, radioOptionsCricket, radioOptionsFootball };
   
 
 
