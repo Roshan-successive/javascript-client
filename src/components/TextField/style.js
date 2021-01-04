@@ -1,8 +1,13 @@
 import styled, { css } from 'styled-components';
 
 const Div = styled.div`
+<<<<<<< HEAD
 padding: 20px;
 border: 0.1px solid black;
+=======
+margin: 2px;
+
+>>>>>>> 84f6732f5bde61d98fa0fc7666f6d1448286e57c
 `;
 const Error = styled.p`
 color: red;

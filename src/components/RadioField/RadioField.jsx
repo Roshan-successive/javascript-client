@@ -20,12 +20,12 @@ export const RadioField = (props) => {
   );
 };
 RadioField.propTypes = {
-  error: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.object),
-  onBlur: PropTypes.string.isRequired,
+    error: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    options: PropTypes.arrayOf(PropTypes.object),
+    onBlur: PropTypes.string.isRequired,
 };
 RadioField.defaultProps = {
-  error: '',
-  options: [],
+    error: '',
+    options: [],
 };

@@ -4,7 +4,7 @@ const Select = styled.select`
 width: 100%;
 padding: 1%;
 ${(props) => props.error
-  && css`
+        && css`
   border: 1px solid red;
   `};
 `;
