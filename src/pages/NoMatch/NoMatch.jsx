@@ -18,7 +18,7 @@ const theme = createMuiTheme({
     ].join(','),
   },
 });
-function NotFound(props) {
+const NotFound = (props) => {
   const { classes } = props;
   return (
     <>
@@ -36,7 +36,7 @@ function NotFound(props) {
       </ThemeProvider>
     </>
   );
-}
+};
 NotFound.propTypes = {
   classes: PropType.objectOf(PropType.string).isRequired,
 };
