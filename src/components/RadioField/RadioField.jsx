@@ -11,13 +11,15 @@ export const RadioField = (props) => {
       { options && options.length && options.map(({ value, label }) => (
         <Fragment key={label}>
           <Input type="radio" name="sport" value={value} onChange={onChange} error={error} onBlur={onBlur} />
-          { label }
+          { label}
           <br />
         </Fragment>
       ))}
       <Err>{error}</Err>
     </>
   );
+
+
 };
 RadioField.propTypes = {
   error: PropTypes.string,
