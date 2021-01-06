@@ -1,13 +1,9 @@
-
 import React, { Component } from 'react';
-
 import { TextField, Slider } from '../../components';
 import { Div } from '../../components/TextField/style';
 import { banners, DEFAULT_BANNER_IMAGE } from '../../config/constants';
 
-
 // eslint-disable-next-line react/prefer-stateless-function
-
 class TextFieldDemo extends Component {
   render() {
     return (
@@ -31,7 +27,4 @@ class TextFieldDemo extends Component {
     );
   }
 }
-
 export default TextFieldDemo;
-
-

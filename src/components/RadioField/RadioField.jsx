@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Input, Err } from './style';
 
 export const RadioField = (props) => {
-
   const {
     error, onChange, options, onBlur,
   } = props;
@@ -38,12 +37,12 @@ export const RadioField = (props) => {
 
 };
 RadioField.propTypes = {
-    error: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    options: PropTypes.arrayOf(PropTypes.object),
-    onBlur: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.object),
+  onBlur: PropTypes.string.isRequired,
 };
 RadioField.defaultProps = {
-    error: '',
-    options: [],
+  error: '',
+  options: [],
 };
