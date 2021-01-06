@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 import moment from 'moment';
 
 const getDateFormatted = (date) => moment(date).format('dddd, MMMM Do YYYY, h:mm:ss a');
@@ -41,4 +42,5 @@ const trainees = [
   },
 ];
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default { trainees, getDateFormatted };

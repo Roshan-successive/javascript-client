@@ -6,8 +6,6 @@ import { Footer } from '../components/index';
 const AuthLayout = ({ children, ...rest }) => (
   <div>
     <div>{children}</div>
-    &nbsp;
-    &nbsp;
     <Footer />
   </div>
 );
