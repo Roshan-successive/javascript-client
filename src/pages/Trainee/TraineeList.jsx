@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { AddDialog, EditDialog, DeleteDialog } from './components';
 import trainees from './data/trainee';
 import { TableComponent } from '../../components/index';
-import { getFormattedDate } from '../../ libs/utils/getFormatedDate';
+import { getFormattedDate } from '../../libs/utils/getFormatedDate';
+import callApi from '../../libs/utils/api';
+import { IsLoadingHOC } from '../../components/HOC';
 
 const asend = 'asc';
 const dsend = 'desc';
@@ -14,13 +17,24 @@ class TraineeList extends Component {
     super();
     this.state = {
       open: false,
-      orderBy: '',
-      order: asend,
+      order: dsend,
+      sortedOrder: 1,
+      sortedBy: 'name' && 'email',
       page: 0,
+      totalCount: 0,
       edit: false,
       deleteDialog: false,
+      skip: 0,
+      limit: 20,
       traineeInfo: {},
+      database: [],
     };
+  }
+
+  componentDidMount() {
+    const { setLoading } = this.props;
+    setLoading(true);
+    this.renderData();
   }
 
   onOpen = () => {
@@ -63,30 +77,51 @@ class TraineeList extends Component {
   }
 
   handleSort = (field) => {
-    const { order, orderBy } = this.state;
+    const { order, sortedBy } = this.state;
     let tabOrder = asend;
-    if (orderBy === field && order === asend) {
+    if (sortedBy === field && order === asend) {
       tabOrder = dsend;
     }
-    this.setState({ orderBy: field, order: tabOrder });
+    this.setState({ sortedBy: field, order: tabOrder });
   }
 
   handlePageChange = (event, page) => {
     this.setState({ page });
   }
 
+  handleSelect = (id) => {
+    const { match, history } = this.props;
+    return (
+      history.push(`${match.path}/${id}`)
+    );
+  }
+
   handleSubmit = () => {
     this.setState({ open: false });
   }
 
+  renderData = async () => {
+    const {
+      limit, skip, sortedBy, sortedOrder, search,
+    } = this.state;
+    const { setLoading } = this.props;
+    await callApi(`/user/get? limit=${limit}&skip=${skip}&sortedBy=${sortedBy}&sortedOrder=${sortedOrder}&search=${search}`, 'GET')
+      .then((response) => {
+        setTimeout(() => {
+          setLoading(false);
+          this.setState({ database: response.data.data, totalCount: response.data.TraineeCount + 1 });
+        }, 500);
+        console.log("response", response.data);
+      })
+      .catch(() => {
+        setLoading(false);
+        console.log('there is an errror');
+      });
+  }
+
   render() {
     const {
-      open,
-      deleteDialog,
-      order,
-      orderBy,
-      page,
-      edit,
+      open, deleteDialog, order, sortedBy, page, edit, database, loading, totalCount, orderBy,
     } = this.state;
     return (
       <>
@@ -97,43 +132,52 @@ class TraineeList extends Component {
             onSubmit={this.handleSubmit}
           />
         </div>
-        <TableComponent
-          id="id"
-          data={trainees}
-          column={[
-            {
-              field: 'name',
-              label: 'Name',
-            },
-            {
-              field: 'email',
-              label: 'Email Address',
-              format: (value) => value && value.toUpperCase(),
-            },
-            {
-              field: 'createdAt',
-              label: 'Date',
-              align: 'right',
-              format: getFormattedDate,
-            },
-          ]}
-          actions={[
-            {
-              icon: <EditIcon />,
-              handler: this.editDialogOpen,
-            },
-            {
-              icon: <DeleteIcon />,
-              handler: this.deleteDialogOpen,
-            },
-          ]}
-          orderBy={orderBy}
-          order={order}
-          onSort={this.handleSort}
-          count={100}
-          page={page}
-          onPageChange={this.handlePageChange}
-        />
+        {
+          loading ? (
+            <CircularProgress size={50} color="secondary" style={{ marginLeft: '50%', Center: '20%' }} />
+          )
+            : (
+              <TableComponent
+                id="id"
+                data={database}
+                column={[
+                  {
+                    field: 'name',
+                    label: 'Name',
+                  },
+                  {
+                    field: 'email',
+                    label: 'Email Address',
+                    format: (value) => value && value.toUpperCase(),
+                  },
+                  {
+                    field: 'createdAt',
+                    label: 'Date',
+                    align: 'right',
+                    format: getFormattedDate,
+                  },
+                ]}
+                actions={[
+                  {
+                    icon: <EditIcon />,
+                    handler: this.editDialogOpen,
+                  },
+                  {
+                    icon: <DeleteIcon />,
+                    handler: this.deleteDialogOpen,
+                  },
+                ]}
+                sortedBy={sortedBy}
+                order={order}
+                orderBy={orderBy}
+                onSort={this.handleSort}
+                onSelect={this.handleSelect}
+                count={totalCount}
+                page={page}
+                onPageChange={this.handlePageChange}
+              />
+            )
+        }
         <>
           { edit && (
             <EditDialog
@@ -156,5 +200,7 @@ class TraineeList extends Component {
 }
 TraineeList.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
-export default TraineeList;
+export default (IsLoadingHOC(TraineeList));
