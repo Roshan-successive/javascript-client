@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { PUBLIC_IMAGE_FOLDER, DEFAULT_BANNER_IMAGE, total } from '../../config/constants';
 import Img from './style';
-import { getRandomNumber, getNextRoundRobin } from '../../ libs/utils/math';
+import { getRandomNumber, getNextRoundRobin } from '../../libs/utils/math';
 
 class Slider extends Component {
     constructor(props) {
