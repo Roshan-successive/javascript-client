@@ -1,7 +1,7 @@
 const trainees = [
   {
     id: '5c6c47af7740654f0915fac9',
-    name: 'Sachin Tendulkar',
+    name: 'xyz',
     email: 'sachin@gmail.com',
     createdAt: '2019-02-10T18:15:11.778Z',
   },
