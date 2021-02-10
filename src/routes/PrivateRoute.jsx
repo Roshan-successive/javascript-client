@@ -11,7 +11,7 @@ class PrivateRoute extends Component {
 
   render() {
     const { component: Page, ...rest } = this.props;
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('')) {
       return (
         <Route
           {...rest}

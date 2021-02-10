@@ -13,14 +13,22 @@ import MailIcon from '@material-ui/icons/Mail';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import * as yup from 'yup';
 
+import PropTypes from 'prop-types';
+import { CircularProgress } from '@material-ui/core';
 import { Div, P } from './style';
 import { SnackBarContext } from '../../../../contexts';
+// import callApi from '../../../../lib/utils/api';
 
 class AddDialog extends React.Component {
   constructor() {
     super();
     this.state = {
-      open: false,
+      open: '',
+      name: '',
+      email: '',
+      password: '',
+      loading: '',
+      confirmPassword: '',
       touched: {
         name: false,
         email: false,
@@ -45,7 +53,9 @@ schema = yup.object().shape({
     .matches(/(?=.*[0-9])/, 'should have atleast one number')
     .matches(/(?=.*[@#$%^&+=])/, 'should have atleast one special character')
     .min(8, 'minimum 8 characters'),
-  confirmPassword: yup.string().required('confirm password required').oneOf([yup.ref('password')], 'passwords do not match'),
+  confirmPassword: yup.string()
+    .required('confirm password missing')
+    .oneOf([yup.ref('password')], 'passwords do not match'),
 });
 
 handleClickOpen = () => {
@@ -54,13 +64,34 @@ handleClickOpen = () => {
   });
 }
 
+handlerLoading = () => {
+  const { loading } = this.state;
+  if (!loading) {
+    this.setState({ loading: true });
+  }
+}
+
 handleClosed = () => {
   this.setState(this.baseState);
 }
 
-onSubmit = (event, value) => {
+onSubmit = async (event, openSnackBar) => {
+  const { name, email, password } = this.state;
+  const { createTrainee, refetchQueries } = this.props;
+  console.log('Create', createTrainee);
+  console.log('Queries', refetchQueries);
+  this.setState({ loading: true });
+  // await callApi('/trainee', 'POST', { name, email, password, confirmPassword })
+  await createTrainee({ variables: { name, email, password } })
+    .then(() => {
+      openSnackBar('Trainee added successfully', 'Success');
+      refetchQueries();
+    })
+    .catch((err) => {
+      console.log('Error', err);
+      openSnackBar('Invalid Input', 'error');
+    });
   this.setState(this.baseState);
-  value('Successfully Added!', 'success');
 };
 
 getError(field) {
@@ -96,7 +127,7 @@ isTouched(field) {
 
 render() {
   const {
-    name, email, password, open, confirmPassword,
+    name, email, password, open, confirmPassword, loading,
   } = this.state;
 
   const handleNameChange = (event) => {
@@ -220,7 +251,7 @@ render() {
                       }}
                     />
                   </div>
-                  <Div><P>{this.getError('confirmPassword')}</P></Div>
+                  <Div><P primary>{this.getError('confirmPassword')}</P></Div>
                 </div>
               </Box>
             </DialogContent>
@@ -228,7 +259,13 @@ render() {
               <Button onClick={this.handleClosed} color="primary">
                 Cancel
               </Button>
-              <Button onClick={(event) => this.onSubmit(event, value)} variant="contained" color="primary" disabled={this.hasErrors()}>
+              <Button
+                onClick={(event) => this.onSubmit(event, value)}
+                variant="contained"
+                color="primary"
+                disabled={this.hasErrors()}
+              >
+                {loading && <CircularProgress size={24} />}
                 Submit
               </Button>
             </DialogActions>
@@ -239,4 +276,10 @@ render() {
   );
 }
 }
+
+AddDialog.propTypes = {
+  createTrainee: PropTypes.isRequired,
+  refetchQueries: PropTypes.isRequired,
+};
+
 export default AddDialog;
