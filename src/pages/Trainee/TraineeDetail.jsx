@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 import trainees from './data/trainee';
 import NotFound from '../NoMatch/index';
+import callApi from '../../ libs/utils/api';
 
 const style = (theme) => ({
   root: {
@@ -40,9 +41,13 @@ const style = (theme) => ({
   },
 });
 
-const TraineeDetails = (props) => {
+const TraineeDetails = async(props) => {
   const { classes } = props;
   const { match } = props;
+  console.log('before')
+  const x = await callApi('/Trainee' , 'GET', {})
+  console.log('after')
+  console.log(x)
   const traineeData = trainees.find(({ id }) => id === match.params.traineeId);
   const getDateFormatted = () => moment(traineeData.createdAt).format('dddd, MMMM Do YYYY, h:mm:ss a');
   if (traineeData === undefined) {
