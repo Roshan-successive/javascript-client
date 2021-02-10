@@ -15,3 +15,4 @@ query getAllTrainees($skip: String, $limit: String, $sortedBy: String, $sortedOr
     }
 }`;
 export { GET };
+

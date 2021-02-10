@@ -234,3 +234,4 @@ export default graphql(GET,
       },
     },
   })(TraineeList);
+
