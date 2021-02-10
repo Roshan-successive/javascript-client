@@ -128,7 +128,6 @@ class TraineeList extends Component {
     const {
       open, deleteDialog, order, sortedBy, page, edit, database, loader, traineeInfo, limit,
     } = this.state;
-    console.log(":::::::::::::--database------->>>>>>>>", database);
     return (
       <>
         <div style={{ float: 'right' }}>
